@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | Amrita Vishwa Vidyapeetham</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+    }
+
+    header {
+      background-color: #a6203a;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-container img {
+      height: 80px;
+      margin-right: 20px;
+    }
+
+    .logo-text h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .logo-text h2 {
+      margin: 4px 0 0 0;
+      font-size: 16px;
+      font-weight: normal;
+      color: #ffe6ea;
+    }
+
+    .login-section {
+      display: flex;
+      flex-wrap: wrap;
+      min-height: 90vh;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .login-box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .login-box h2 {
+      margin-bottom: 20px;
+      color: #a6203a;
+      text-align: center;
+    }
+
+    .login-box input[type="email"],
+    .login-box input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 12px;
+      background-color: #a6203a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .login-box button:hover {
+      background-color: #8f1c31;
+    }
+
+    .login-box .links {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .login-box .links a {
+      color: #a6203a;
+      text-decoration: none;
+    }
+
+    .login-box .links a:hover {
+      text-decoration: underline;
+    }
+
+    .error-message {
+      color: #d9534f;
+      font-size: 14px;
+      margin-bottom: 15px;
+      text-align: center;
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .logo-text h1 {
+        font-size: 20px;
+      }
+      .logo-text h2 {
+        font-size: 14px;
+      }
+      .login-box {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-container">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFkQkqMeKoGbEvigZjXpJVTOw0WJ9Mjm4CrQ&s" alt="Amrita Logo" />
+      <div class="logo-text">
+        <h1>Amrita Vishwa Vidyapeetham</h1>
+        <h2>Amaravati</h2>
+      </div>
+    </div>
+  </header>
+
+  <section class="login-section">
+    <div class="login-box">
+      <h2>Student Login</h2>
+      <form id="loginForm">
+        <div id="errorMessage" class="error-message"></div>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button type="submit">Log In</button>
+      </form>
+      <div class="links">
+        <p><a href="#" id="forgotPassword">Forgot Password?</a></p>
+        <p>Don't have an account? <a href="signup.html" id="signUp">Sign Up</a></p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const loginForm = document.getElementById('loginForm');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const errorMessage = document.getElementById('errorMessage');
+      const forgotPasswordLink = document.getElementById('forgotPassword');
+
+      // Sample valid credentials
+      const validCredentials = {
+        email: 'kssnehapriya0203@gmail.com',
+        password: 'Sneha@123'
+      };
+
+      // Validate email format
+      function isValidEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(String(email).toLowerCase());
+      }
+
+      // Validate password
+      function isValidPassword(password) {
+        const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        return re.test(password);
+      }
+
+      // Handle form submission
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+        
+        // Debug log
+        console.log('Entered Email:', email);
+        console.log('Entered Password:', password);
+        
+        // Reset error message
+        errorMessage.style.display = 'none';
+        
+        // Validate inputs
+        if (!email || !password) {
+          showError('Please fill in all fields');
+          return;
+        }
+        
+        if (!isValidEmail(email)) {
+          showError('Please enter a valid email address');
+          return;
+        }
+        
+        if (!isValidPassword(password)) {
+          showError('Password must be at least 8 characters with uppercase, lowercase, and a number');
+          return;
+        }
+        
+        // Check credentials (case-insensitive email)
+        if (email.toLowerCase() === validCredentials.email.toLowerCase() && password === validCredentials.password) {
+          // Successful login - redirect to clubs page
+          console.log('Redirecting to Clubs.html'); // Debug log
+          window.location.href = 'Clubs.html'; // Relative path
+        } else {
+          showError('Invalid email or password');
+        }
+      });
+
+      // Show error message
+      function showError(message) {
+        errorMessage.textContent = message;
+        errorMessage.style.display = 'block';
+      }
+
+      // Forgot password functionality
+      forgotPasswordLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        const email = prompt('Please enter your email address to reset your password:');
+        if (email && isValidEmail(email)) {
+          alert('Password reset instructions have been sent to your email.');
+        } else if (email) {
+          alert('Please enter a valid email address.');
+        } else {
+          alert('No email provided.');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

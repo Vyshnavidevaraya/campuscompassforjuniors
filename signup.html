@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Signup | Amrita Vishwa Vidyapeetham</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+    }
+
+    header {
+      background-color: #a6203a;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-container img {
+      height: 80px;
+      margin-right: 20px;
+    }
+
+    .logo-text h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .logo-text h2 {
+      margin: 4px 0 0 0;
+      font-size: 16px;
+      font-weight: normal;
+      color: #ffe6ea;
+    }
+
+    .signup-section {
+      display: flex;
+      flex-wrap: wrap;
+      min-height: 90vh;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .signup-box {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .signup-box h2 {
+      margin-bottom: 20px;
+      color: #a6203a;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 15px;
+    }
+
+    .form-row .form-group {
+      flex: 1;
+    }
+
+    .signup-box label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+      color: #555;
+    }
+
+    .signup-box input[type="text"],
+    .signup-box input[type="email"],
+    .signup-box input[type="password"],
+    .signup-box input[type="date"],
+    .signup-box select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .signup-box button {
+      width: 100%;
+      padding: 12px;
+      background-color: #a6203a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin-top: 10px;
+    }
+
+    .signup-box button:hover {
+      background-color: #8f1c31;
+    }
+
+    .login-link {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .login-link a {
+      color: #a6203a;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+
+    .error-message {
+      color: #d9534f;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .success-message {
+      color: #5cb85c;
+      font-size: 14px;
+      margin-bottom: 15px;
+      text-align: center;
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .logo-text h1 {
+        font-size: 20px;
+      }
+
+      .logo-text h2 {
+        font-size: 14px;
+      }
+      
+      .signup-box {
+        padding: 20px;
+      }
+      
+      .form-row {
+        flex-direction: column;
+        gap: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-container">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn9GcRFkQkqMeKoGbEvigZjXpJVTOw0WJ9Mjm4CrQ&s" alt="Amrita Logo" onerror="this.src='amrita-logo.png'">
+      <div class="logo-text">
+        <h1>Amrita Vishwa Vidyapeetham</h1>
+        <h2>Amaravati Campus</h2>
+      </div>
+    </div>
+  </header>
+
+  <section class="signup-section">
+    <div class="signup-box">
+      <h2>Student Registration</h2>
+      <div id="successMessage" class="success-message"></div>
+      <form id="signupForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" required>
+            <div id="firstNameError" class="error-message"></div>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" required>
+            <div id="lastNameError" class="error-message"></div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" required>
+          <div id="emailError" class="error-message"></div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" required>
+            <div id="passwordError" class="error-message"></div>
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" required>
+            <div id="confirmPasswordError" class="error-message"></div>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" required>
+            <div id="dobError" class="error-message"></div>
+          </div>
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="gender" required>
+              <option value="">Select Gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+              <option value="prefer-not-to-say">Prefer not to say</option>
+            </select>
+            <div id="genderError" class="error-message"></div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="studentId">Student ID</label>
+          <input type="text" id="studentId" required>
+          <div id="studentIdError" class="error-message"></div>
+        </div>
+        
+        <div class="form-group">
+          <label for="department">Department</label>
+          <select id="department" required>
+            <option value="">Select Department</option>
+            <option value="cse">Computer Science</option>
+            <option value="ece">Electronics & Communication</option>
+            <option value="mech">Mechanical Engineering</option>
+            <option value="civil">Civil Engineering</option>
+            <option value="bba">Business Administration</option>
+          </select>
+          <div id="departmentError" class="error-message"></div>
+        </div>
+        
+        <button type="submit" id="signupButton">Create Account</button>
+      </form>
+      
+      <div class="login-link">
+        <p>Already have an account? <a href="login page.html">Log in here</a></p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const signupForm = document.getElementById('signupForm');
+      const signupButton = document.getElementById('signupButton');
+      const successMessage = document.getElementById('successMessage');
+
+      // Validate email format
+      function isValidEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(String(email).toLowerCase());
+      }
+
+      // Validate password strength
+      function isValidPassword(password) {
+        const re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        return re.test(password);
+      }
+
+      // Validate date (must be at least 16 years old)
+      function isValidDate(dob) {
+        const birthDate = new Date(dob);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+          age--;
+        }
+        
+        return age >= 16;
+      }
+
+      // Show error message
+      function showError(fieldId, message) {
+        const errorElement = document.getElementById(`${fieldId}Error`);
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+      }
+
+      // Hide error message
+      function hideError(fieldId) {
+        const errorElement = document.getElementById(`${fieldId}Error`);
+        errorElement.style.display = 'none';
+      }
+
+      // Handle form submission
+      signupForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Get form values
+        const firstName = document.getElementById('firstName').value.trim();
+        const lastName = document.getElementById('lastName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const dob = document.getElementById('dob').value;
+        const gender = document.getElementById('gender').value;
+        const studentId = document.getElementById('studentId').value.trim();
+        const department = document.getElementById('department').value;
+        
+        // Reset error messages
+        hideError('firstName');
+        hideError('lastName');
+        hideError('email');
+        hideError('password');
+        hideError('confirmPassword');
+        hideError('dob');
+        hideError('gender');
+        hideError('studentId');
+        hideError('department');
+        
+        // Validate form
+        let isValid = true;
+        
+        if (!firstName) {
+          showError('firstName', 'First name is required');
+          isValid = false;
+        }
+        
+        if (!lastName) {
+          showError('lastName', 'Last name is required');
+          isValid = false;
+        }
+        
+        if (!email) {
+          showError('email', 'Email is required');
+          isValid = false;
+        } else if (!isValidEmail(email)) {
+          showError('email', 'Please enter a valid email address');
+          isValid = false;
+        }
+        
+        if (!password) {
+          showError('password', 'Password is required');
+          isValid = false;
+        } else if (!isValidPassword(password)) {
+          showError('password', 'Password must be at least 8 characters with uppercase, lowercase, and a number');
+          isValid = false;
+        }
+        
+        if (!confirmPassword) {
+          showError('confirmPassword', 'Please confirm your password');
+          isValid = false;
+        } else if (password !== confirmPassword) {
+          showError('confirmPassword', 'Passwords do not match');
+          isValid = false;
+        }
+        
+        if (!dob) {
+          showError('dob', 'Date of birth is required');
+          isValid = false;
+        } else if (!isValidDate(dob)) {
+          showError('dob', 'You must be at least 16 years old');
+          isValid = false;
+        }
+        
+        if (!gender) {
+          showError('gender', 'Please select your gender');
+          isValid = false;
+        }
+        
+        if (!studentId) {
+          showError('studentId', 'Student ID is required');
+          isValid = false;
+        }
+        
+        if (!department) {
+          showError('department', 'Please select your department');
+          isValid = false;
+        }
+        
+        if (!isValid) return;
+        
+        // Simulate form submission
+        signupButton.disabled = true;
+        signupButton.textContent = 'Creating Account...';
+        
+        // Simulate API call delay
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        // Show success message
+        successMessage.textContent = 'Registration successful! Redirecting to login...';
+        successMessage.style.display = 'block';
+        
+        // In a real app, you would submit to a server here
+        // For demo, we'll just store in localStorage
+        const userData = {
+          firstName,
+          lastName,
+          email,
+          password, // Note: In real app, never store plain text passwords
+          dob,
+          gender,
+          studentId,
+          department,
+          registeredAt: new Date().toISOString()
+        };
+        
+        localStorage.setItem('registeredUser', JSON.stringify(userData));
+        
+        // Redirect to login after delay
+        setTimeout(() => {
+          window.location.href = 'login page.html'; // Corrected path
+        }, 2000);
+      });
+    });
+  </script>
+</body>
+</html>
